@@ -68,3 +68,10 @@ gem 'bootstrap', '>= 4.1.2'
 source 'https://rails-assets.org' do
   gem 'rails-assets-tether', '>= 1.3.3'
 end
+
+# Add pagination gem
+gem 'will_paginate', '~>3.1.1'
+gem 'will_paginate-bootstrap'
+
+# Add simple form gem
+gem 'simple_form'

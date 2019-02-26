@@ -1,8 +1,19 @@
-<% @places.each do |place|  %>
-  <div class="nomster-box col-10 offset-1">
-      <h1><%= place.name %></h1>
-      <i><%= place.address %></i><br /><br />
-      <p><%= place.description  %></p><br />
-  </div>
+<div class="navigation_container col-10 offset-1">
+  <nav aria-label="Page navigation example">
+      <ul class="pagination">
+          <% @pages_num.times do |num| %>
+          <li class="page-item"><a href="<%= num + 1 %>" class="page-link"><%= num + 1 %></a></li>
+          <% end %>
+      </ul>
+  </nav>
+</div>
+
+<% @places.each do |place| %>
+
+<div class="nomster-box col-10 offset-1">
+    <h1><%= place.name %></h1>
+    <i><%= place.address %></i><br /><br />
+    <p><%= place.description  %></p><br />
+</div>
 
 <% end %>
