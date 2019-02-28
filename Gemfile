@@ -75,3 +75,6 @@ gem 'will_paginate-bootstrap'
 
 # Add simple form gem
 gem 'simple_form'
+
+# Add Font Awesome gem
+gem "font-awesome-rails"
