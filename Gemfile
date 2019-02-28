@@ -78,3 +78,5 @@ gem 'simple_form'
 
 # Add Font Awesome gem
 gem "font-awesome-rails"
+
+gem "devise"
