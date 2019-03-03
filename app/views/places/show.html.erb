@@ -38,3 +38,23 @@
       <% end %>
   </div>
 </div>
+
+<div class="clear"></div>
+
+<%= simple_form_for @comment, url: place_comments_path(@place) do |f| %>
+  <%= f.input :message %>
+  <%= f.input :rating, as: :select, collection: Comment::RATINGS, prompt: "Select One" %>
+  <%= f.submit "Add a Comment", class: "btn btn-primary" %>
+<% end %>
+
+<h1>Comments</h1>
+
+<% @place.comments.each do |comment| %>
+<div>
+  <blockquote>
+      <b><%= comment.rating %></b> - 
+      <%= comment.message %>
+      <small><%= comment.user.email %></small>
+  </blockquote>
+</div>
+<% end %>
