@@ -55,9 +55,13 @@ nav button.navbar-toggler {
 div.navbar-collapse ul {
     list-style-type: none;
 }
+a, a:hover {
+    color: #333;
+    text-decoration: none;
+}
+
 a.nav-link,
 a.nav-link:hover {
-    text-decoration: none;
     color: #f9cccc;
     font-family: 'Laila', serif;
 }
