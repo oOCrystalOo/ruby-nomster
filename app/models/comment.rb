@@ -3,14 +3,14 @@ class Comment < ApplicationRecord
   belongs_to :place
   
   RATINGS = {
-    'one star': '1_star',
-    'two stars': '2_stars',
-    'three stars': '3_stars',
-    'four stars': '4_stars',
-    'five stars': '5_stars'
+    '1': '1_star',
+    '2': '2_stars',
+    '3': '3_stars',
+    '4': '4_stars',
+    '5': '5_stars'
   }
   
   def humanize_ratings
-    RATINGS.invert[self.rating]
+    RATINGS.invert[self.rating].to_s.to_i
   end
 end
