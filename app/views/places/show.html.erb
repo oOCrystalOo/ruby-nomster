@@ -41,11 +41,36 @@
 
 <div class="clear"></div>
 
-<%= simple_form_for @comment, url: place_comments_path(@place) do |f| %>
-  <%= f.input :message %>
-  <%= f.input :rating, as: :select, collection: Comment::RATINGS, prompt: "Select One" %>
-  <%= f.submit "Add a Comment", class: "btn btn-primary" %>
-<% end %>
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
+    <i class="fa fa-plus-circle"></i>
+    <span>Add a Comment</span>
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="myModalLabel">Add a Comment</h4>
+        
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="float: right">
+          <span aria-hidden="true" class="fa fa-times"></span>
+        </button>
+      </div>
+      <%= simple_form_for @comment, url: place_comments_path(@place) do |f| %>
+        <div class="modal-body">
+          <%= f.input :message %>
+          <%= f.input :rating, as: :select, collection: Comment::RATINGS, prompt: "Select One" %>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <%= f.submit "Add a Comment", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
 
 <h1>Comments</h1>
 
