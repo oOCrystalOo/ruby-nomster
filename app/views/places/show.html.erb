@@ -4,43 +4,14 @@
   <br/><br/>
   <p><%= @place.description %></p>
   
-  <div class="float-right">
-      <% if current_user && current_user == @place.user %>
-        <%= link_to 'Edit', edit_place_path(@place), class: 'btn btn-primary' %>
-        <%= link_to 'Destroy', place_path(@place), method: :delete, data: { confirm:'Are you sure you want to delete this?' }, class: 'btn btn-danger' %>
-      <% end %>
-  </div>
-</div>
-
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
-    <meta charset="utf-8">
-    <title>Simple Markers</title>
-    <style>
-      /* Always set the map height explicitly to define the size of the div
-       * element that contains the map. */
-      #map {
-        height: 100%;
-      }
-      /* Optional: Makes the sample page fill the window. */
-      html, body {
-        height: 100%;
-        margin: 0;
-        padding: 0;
-      }
-    </style>
-  </head>
-  <body>
-    <div id="map"></div>
+  <% if @place.longitude.present? && @place.latitude.present?  %>
     <script>
 
       function initMap() {
-        var myLatLng = {lat: -25.363, lng: 131.044};
+        var myLatLng = {lat: <%= @place.latitude  %> , lng: <%= @place.longitude  %> };
 
         var map = new google.maps.Map(document.getElementById('map'), {
-          zoom: 4,
+          zoom: 12,
           center: myLatLng
         });
 
@@ -51,8 +22,17 @@
         });
       }
     </script>
-    <script async defer
-    src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap">
-    </script>
-  </body>
-</html>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['GEOCODER_API_KEY'] %>&callback=initMap"></script>
+
+    <div id="map"></div>
+  <% end %>
+  
+  <br />
+    
+  <div class="float-right">
+      <% if current_user && current_user == @place.user %>
+        <%= link_to 'Edit', edit_place_path(@place), class: 'btn btn-primary' %>
+        <%= link_to 'Destroy', place_path(@place), method: :delete, data: { confirm:'Are you sure you want to delete this?' }, class: 'btn btn-danger' %>
+      <% end %>
+  </div>
+</div>
