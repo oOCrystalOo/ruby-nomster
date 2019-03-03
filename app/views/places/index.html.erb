@@ -10,14 +10,37 @@
 
 <% @places.each do |place| %>
 
-<div class="nomster-box col-10 offset-1">
+  <div class="nomster-box col-10 offset-1">
     <h1><%= link_to place.name, place_path(place) %></h1><br />
     <i><%= place.address %></i><br /><br />
     <p><%= place.description  %></p><br />
-    
+
     <% if place.user.present? %>
       <small><%= place.user.email %></small>
     <% end %>
-</div>
+
+    <% if place.comments.present? %>
+      <div class="col-12">
+        <blockquote>
+          <% comment = place.comments.last %>
+            <% if comment.humanize_ratings.present? %>
+              <b>
+                <% comment.humanize_ratings.times do |i| %>
+                  <i class="fa fa-star"></i>
+                <% end %>
+              </b>
+              <b>
+                <% (5 - comment.humanize_ratings).times do |i| %>
+                  <i class="fa fa-star-o"></i>
+                <% end %>
+              </b>
+            <% end %>
+            <br />
+            <%= comment.message %>
+            <small class="float-right"><%= comment.user.email %></small>
+        </blockquote>
+      </div>
+    <% end %>
+  </div>
 
 <% end %>

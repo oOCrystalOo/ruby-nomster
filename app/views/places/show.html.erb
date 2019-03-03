@@ -81,16 +81,18 @@
   <% @place.comments.each do |comment| %>
   <div class="col-12 col-sm-6">
     <blockquote>
-        <b>
-          <% comment.humanize_ratings.times do |i| %>
-            <i class="fa fa-star"></i>
-          <% end %>
-        </b>
-        <b>
-          <% (5 - comment.humanize_ratings).times do |i| %>
-            <i class="fa fa-star-o"></i>
-          <% end %>
-        </b>
+        <% if comment.humanize_ratings.present? %>
+          <b>
+            <% comment.humanize_ratings.times do |i| %>
+              <i class="fa fa-star"></i>
+            <% end %>
+          </b>
+          <b>
+            <% (5 - comment.humanize_ratings).times do |i| %>
+              <i class="fa fa-star-o"></i>
+            <% end %>
+          </b>
+        <% end %>
         <br />
         <%= comment.message %>
         <small class="float-right"><%= comment.user.email %></small>
