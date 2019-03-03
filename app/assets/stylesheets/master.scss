@@ -1,6 +1,6 @@
 @import "bootstrap";
 @import "font-awesome";
-@import url('https://fonts.googleapis.com/css?family=Srisakdi');
+@import url('https://fonts.googleapis.com/css?family=Laila');
 
 body {
   background: image_url('dynamic-style.png');
@@ -14,7 +14,7 @@ body {
 
 .navbar-inverse .navbar-brand {
   color: #f9cccc;
-  font-family: 'Srisakdi', cursive;
+  font-family: 'Laila', serif;
   font-weight: 900;
   letter-spacing: 5px;
 }
@@ -40,4 +40,24 @@ h1, h2, h3, h4, h5, h6 {
     margin-top: 15px;
     margin-bottom: 15px;
     padding: 0;
+}
+
+.invalid-feedback {
+    color: #ff3333;
+    background-color: #FFEEEE;
+    border-radius: 3px;
+    padding: 2px 8px;
+}
+
+nav button.navbar-toggler {
+    color: #f9cccc;
+}
+div.navbar-collapse ul {
+    list-style-type: none;
+}
+a.nav-link,
+a.nav-link:hover {
+    text-decoration: none;
+    color: #f9cccc;
+    font-family: 'Laila', serif;
 }

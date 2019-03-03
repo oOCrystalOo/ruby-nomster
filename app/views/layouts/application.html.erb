@@ -13,18 +13,19 @@
       
     <nav class="navbar navbar-toggleable-md navbar-inverse bg-inverse">
       <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+          <span class="navbar-toggler-icon">
+              <i class="fa fa-bars"></i>
+          </span>
       </button>
-      <a class="navbar-brand" href="#">Nomster</a>
       <%= link_to 'Nomster', root_path, class: 'navbar-brand' %>
 
       <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
         <ul class="navbar-nav mr-auto mt-2 mt-md-0">
           <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
-            <%= link_to 'New Place', new_place_path, class: 'nav-link' %>
-            <i class="fa fa-plus-circle"></i>
-            New Place
+            <%= link_to new_place_path, class: 'nav-link' do %>
+              <i class="fa fa-plus-circle"></i>
+              <span>New Place</span>
+            <% end %>
           </li>
         </ul>
         <ul>
