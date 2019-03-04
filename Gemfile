@@ -82,3 +82,6 @@ gem "font-awesome-rails"
 gem "devise"
 gem "geocoder"
 gem "figaro"
+
+# for photos upload
+gem "carrierwave", '~>1.0'
