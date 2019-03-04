@@ -9,6 +9,17 @@ class PhotosController < ApplicationController
     end
   end
   
+  def destroy 
+    @place = Place.find(params[:place_id])
+    @photo = Photo.find(params[:id])
+    if @photo.user != current_user
+      return render plain: 'Not Allowed', status: :forbidden
+    end
+    
+    @photo.destroy
+    redirect_to place_path(@place)
+  end
+  
   def photo_params
     params.require(:photo).permit(:caption, :picture)
   end

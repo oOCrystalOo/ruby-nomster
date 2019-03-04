@@ -18,7 +18,19 @@
     <% if place.user.present? %>
       <small><%= place.user.email %></small>
     <% end %>
-
+      
+    <% if place.photos.present? %>
+      <div class="col-12 centered place_photo_holder">
+        <% photo = place.photos.last %>
+        <%= image_tag photo.picture.url, class: "thumbnail" %>
+        <br />
+        <%= photo.caption  %>
+        <br />
+        <small><%= photo.user.email %></small>
+        <br />
+      </div>
+    <% end %>
+      
     <% if place.comments.present? %>
       <div class="col-12">
         <blockquote>
