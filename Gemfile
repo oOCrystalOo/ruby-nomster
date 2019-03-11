@@ -85,4 +85,4 @@ gem "figaro"
 
 # for photos upload
 gem "carrierwave", '~>1.0'
-gem "fog-aws"
+gem "carrierwave-aws"
