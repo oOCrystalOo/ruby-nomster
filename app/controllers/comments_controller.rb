@@ -14,4 +14,15 @@ class CommentsController < ApplicationController
   def comment_params
     params.require(:comment).permit(:message, :rating)
   end
+  
+  def destroy
+    @place = Place.find(params[:place_id])
+    @comment = Comment.find(params[:id])
+    if @comment.user != current_user
+      return render plain: 'Not Allowed', status: :forbidden
+    end
+    
+    @comment.destroy
+    redirect_to place_path(@place)
+  end
 end
