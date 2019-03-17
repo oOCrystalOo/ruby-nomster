@@ -1,0 +1,66 @@
+<div classs="nomster-box">
+  <div class="row">
+    <div class="col-4">
+      <%= image_tag 'user.png' %>
+    </div>
+    <div class="col-8">
+      <h1><%= @user.email %></h1>
+      <h3>Member Since: <%= @user.created_at.strftime("%B %d, %Y") %></h3>
+      <h4><%= @user.comments.count %> total comments</h4>
+      <h4><%= @user.comments.where(rating: '5_stars').count %> total 5 star reviews</h4>
+      <h4><%= @user.comments.where(rating: '4_stars').count %> total 4 star reviews</h4>
+      <h4><%= @user.comments.where(rating: '3_stars').count %> total 3 star reviews</h4>
+      <h4><%= @user.comments.where(rating: '2_stars').count %> total 2 star reviews</h4>
+      <h4><%= @user.comments.where(rating: '1_stars').count %> total 1 star reviews</h4>
+    </div>
+  </div>
+  <div class="clear"></div>
+</div>
+
+<br /><br />
+<h1 class="text-center">My Comments</h1>
+<br /><br />
+<div class="row">
+  <% @user.comments.each do |comment| %>
+    <div class="col-12 col-sm-6">
+      <h2 class="text-center"><%= link_to comment.place.name, place_path(comment.place) %></h2>
+      <blockquote>
+        <% if comment.humanize_ratings.present? %>
+          <b><%= comment.humanize_ratings %></b> -
+        <% end %>
+        <%= comment.message %>
+        <small><%= comment.user.email %></small>
+      </blockquote>
+    </div>
+  <% end %>
+</div>
+
+<div class="clear"></div>
+<br /><br />
+<h2 class="text-center">My Places</h2>
+<br /><br />
+<div class="row">
+  <% @user.places.each do |place| %>
+    <div class="booyah-box col-10 offset-1">
+      <h1><%= link_to place.name, place_path(place) %></h1><
+      <i><%= place.address %></i><br />;br />
+      <p><%= place.description %></p><br />
+
+      <% if place.user.present? %>
+        <small><%= place.user.email %></small>
+      <% end %>
+
+      <% if place.comments.present? %>
+        <div class="col-12">
+          <blockquote>
+            <% if place.comments.last.humanize_ratings.present? %>
+              <b><%= place.comments.last.humanize_ratings %></b> -
+            <% end %>
+            <%= place.comments.last.message %>
+            <small><%= place.comments.last.user.email %></small>
+          </blockquote>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+</div>
