@@ -79,25 +79,27 @@
 <br /><br />
 <div class="row">
   <% @user.comments.each do |comment| %>
-    <div class="col-12 col-sm-6">
-      <h2 class="text-center"><%= link_to comment.place.name, place_path(comment.place) %></h2>
-      <blockquote>
-        <% if comment.humanize_ratings.present? %>
-          <b>
-            <% comment.humanize_ratings.times do |i| %>
-              <i class="fa fa-star"></i>
-            <% end %>
-          </b>
-          <b>
-            <% (5 - comment.humanize_ratings).times do |i| %>
-              <i class="fa fa-star-o"></i>
-            <% end %>
-          </b>
-        <% end %>
-        <%= comment.message %>
-        <small><%= comment.user.email %></small>
-      </blockquote>
-    </div>
+    <%if comment.place.present? %>
+      <div class="col-12 col-sm-6">
+        <h2 class="text-center"><%= link_to comment.place.name, place_path(comment.place) %></h2>
+        <blockquote>
+          <% if comment.humanize_ratings.present? %>
+            <b>
+              <% comment.humanize_ratings.times do |i| %>
+                <i class="fa fa-star"></i>
+              <% end %>
+            </b>
+            <b>
+              <% (5 - comment.humanize_ratings).times do |i| %>
+                <i class="fa fa-star-o"></i>
+              <% end %>
+            </b>
+          <% end %>
+          <%= comment.message %>
+          <small><%= comment.user.email %></small>
+        </blockquote>
+      </div>
+    <% end %>
   <% end %>
 </div>
 

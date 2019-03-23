@@ -2,7 +2,7 @@ class PlacesController < ApplicationController
   before_action :authenticate_user!, only: [:new, :create, :edit, :update, :delete]
   
   def index
-    per_page = 1
+    per_page = 10
     puts params[:page]
     @pages_num = Place.all.length / per_page
     @places = Place.paginate(:page => params[:page], :per_page => per_page)
