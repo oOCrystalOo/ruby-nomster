@@ -1,17 +1,74 @@
 <div classs="nomster-box">
   <div class="row">
-    <div class="col-4">
-      <%= image_tag 'user.png' %>
+    <div class="col-4 profile_img">
+      <% if @user.profile_image.present? %>
+        <%= image_tag @user.profile_image.url %>
+      <% else %>
+        <%= image_tag 'user.png' %>
+      <% end %>
+      <% if @user === current_user %>
+        <br />
+        <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#uploadPhotoModal">
+          <i class="fa fa-plus-circle"></i>
+          <span>Change Photo</span>
+        </button>
+        <div class="modal fade" id="uploadPhotoModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog" role="document">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Change Photo</h4>
+
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" style="float: right">
+                  <span aria-hidden="true" class="fa fa-times"></span>
+                </button>
+              </div>
+              <%= simple_form_for @user, url: user_path(@user) do |f| %>
+                <div class="modal-body">
+                  <%= f.input :profile_image, as: :file %>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <%= f.submit "Upload Photo", class: "btn btn-primary" %>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      <% end %>
     </div>
     <div class="col-8">
-      <h1><%= @user.email %></h1>
+      <h1 style="word-break: break-all;"><%= @user.email %></h1>
       <h3>Member Since: <%= @user.created_at.strftime("%B %d, %Y") %></h3>
-      <h4><%= @user.comments.count %> total comments</h4>
-      <h4><%= @user.comments.where(rating: '5_stars').count %> total 5 star reviews</h4>
-      <h4><%= @user.comments.where(rating: '4_stars').count %> total 4 star reviews</h4>
-      <h4><%= @user.comments.where(rating: '3_stars').count %> total 3 star reviews</h4>
-      <h4><%= @user.comments.where(rating: '2_stars').count %> total 2 star reviews</h4>
-      <h4><%= @user.comments.where(rating: '1_stars').count %> total 1 star reviews</h4>
+      <h4>
+        <%= @user.comments.count %> 
+        <% if @user.comments.count === 1 %>
+          comment
+        <% else %>
+          comments
+        <% end %>
+        in total
+      </h4>
+      <% 1.upto(5) do |i| %>
+      <h4>
+        <% i.times do |n| %>
+          <i class="fa fa-star"></i>
+        <% end %>
+        <% (5 - i).times do |n| %>
+          <i class="fa fa-star-o"></i>
+        <% end %>
+        <% _rating = i.to_s + '_star' %>
+        <% if i > 1 
+          _rating = i.to_s + '_stars' 
+        end %>
+        <% comment_count = @user.comments.where(rating: _rating).count %>
+        <%= comment_count %>
+        <% if comment_count === 1 %>
+          comment
+        <% else %>
+          comments
+        <% end %>
+      </h4>
+      <% end %>
     </div>
   </div>
   <div class="clear"></div>
@@ -26,7 +83,16 @@
       <h2 class="text-center"><%= link_to comment.place.name, place_path(comment.place) %></h2>
       <blockquote>
         <% if comment.humanize_ratings.present? %>
-          <b><%= comment.humanize_ratings %></b> -
+          <b>
+            <% comment.humanize_ratings.times do |i| %>
+              <i class="fa fa-star"></i>
+            <% end %>
+          </b>
+          <b>
+            <% (5 - comment.humanize_ratings).times do |i| %>
+              <i class="fa fa-star-o"></i>
+            <% end %>
+          </b>
         <% end %>
         <%= comment.message %>
         <small><%= comment.user.email %></small>
@@ -42,8 +108,8 @@
 <div class="row">
   <% @user.places.each do |place| %>
     <div class="booyah-box col-10 offset-1">
-      <h1><%= link_to place.name, place_path(place) %></h1><
-      <i><%= place.address %></i><br />;br />
+      <h1><%= link_to place.name, place_path(place) %></h1>
+      <i><%= place.address %></i><br />
       <p><%= place.description %></p><br />
 
       <% if place.user.present? %>
@@ -61,6 +127,18 @@
           </blockquote>
         </div>
       <% end %>
+    </div>
+  <% end %>
+  <% if @user.places.count === 0 %>
+    <div class="booyah-box col-10 offset-1">
+      <% current_user === @user ? _user = 'You' : _user = 'This user' %>
+      <h4><%= _user  %> have no places.</h4>
+      <b>
+        <%= link_to new_place_path do %>
+          <i class="fa fa-plus-circle"></i>
+          <span>Add a New Place</span>
+        <% end %>
+      </b>
     </div>
   <% end %>
 </div>

@@ -6,4 +6,6 @@ class User < ApplicationRecord
        
   has_many :places
   has_many :comments
+  
+  mount_uploader :profile_image, ProfileImageUploader
 end
