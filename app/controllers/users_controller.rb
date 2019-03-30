@@ -1,6 +1,11 @@
 class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
+    @user.comments.each do |comment|
+      if !comment.place.present?
+        comment.destroy
+      end
+    end
   end
   
   def update 
