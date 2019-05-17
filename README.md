@@ -1,6 +1,7 @@
 # Nomster
 
 A Yelp clone that integrates with the Google Maps API and includes features like user comments, star ratings, image uploading, and user authentication.
+Functioning project can be viewed on (http://nomster-crystal-ng.herokuapp.com).
 
 ## Setup
 1. Clone the repository:
@@ -24,6 +25,14 @@ When launching your project, create a new environmental variable called `GEOCODE
 Set up a S3 bucket with Amazon Web Services. You will need to set up an IAM user with the `AmazonS3FullAccess` permissions. 
 When launching your project, you will need to set the environment variables `AWS_ACCESS_KEY` and `AWS_SECRET_KEY`, which will be provided in the credentials.cvs that was downloaded when the IAM user was created.
 You will also need to enter the enviroment variables `AWS_BUCKET` and `AWS_REGION`.
+
+5. Set up mailing service
+For this example, since the original project was deployed on Heroku, we will be using the SendGrid add-on. Once you've verified your account, enable the addon by running the following command in your terminal:
+```
+$ heroku addons:create sendgrid:starter
+```
+Set the environment variables `SENDGRID_USERNAME` and `SENDGRID_PASSWORD` to your username and password, respectively.
+
 	
 ### Notes
-This project uses postresql, and was created with ruby 2.5.3 and Rails 5.2.3. 
+This project uses postresql, was created with ruby 2.5.3 and Rails 5.2.3, and originally deployed on Heroku.
